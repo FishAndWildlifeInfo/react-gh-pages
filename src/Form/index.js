@@ -226,7 +226,7 @@ class Form extends React.Component {
         const { selectedDate } = this.state;
         
         var submission = {
-            "entry.1113825212": selectedDate.getFullYear() + '-' + ('0' + selectedDate.getMonth()).slice(-2) + '-' + ('0' + selectedDate.getDate()).slice(-2),
+            "entry.1113825212": selectedDate.getFullYear() + '-' + ('0' + (selectedDate.getMonth() + 1)).slice(-2) + '-' + ('0' + selectedDate.getDate()).slice(-2),
             "entry.978780858": lakes[this.state.lake],
             "entry.544223057": this.state.numOfAnglers,
             "entry.465386035": this.state.numOfHoursFished,
@@ -276,7 +276,7 @@ class Form extends React.Component {
                 <Typography variant='h4'>Location and Angling Information</Typography>
                 <br/>
 
-                <Typography variant='p'>Required fields are marked with a <span className={classes.required}>*</span></Typography><br/><br/>
+                <Typography variant='body1'>Required fields are marked with a <span className={classes.required}>*</span></Typography><br/><br/>
 
                 <Typography variant='h5'>Date<span className={classes.required}>*</span></Typography>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -382,13 +382,15 @@ class Form extends React.Component {
                 <div>
                     <Typography variant='h6' style={{textAlign: 'center'}}>Thank you for filling out the survey</Typography>
                 
-                    <iframe style={{ display: 'none', height: 0, width: 0 }} src={"https://docs.google.com/forms/d/e/1FAIpQLSfK8v4xHnetEJH9B_qRJ9W6_gOQHRQgvUZf-Ms90eL-roJnZg/formResponse?usp=pp_url&submit=Submit&" + Object.keys(submission).map(entryId => entryId + '=' + submission[entryId]).join('&')}></iframe>
+                    <iframe title='submit window' style={{ display: 'none', height: 0, width: 0 }} src={"https://docs.google.com/forms/d/e/1FAIpQLSfK8v4xHnetEJH9B_qRJ9W6_gOQHRQgvUZf-Ms90eL-roJnZg/formResponse?usp=pp_url&submit=Submit&" + Object.keys(submission).map(entryId => entryId + '=' + submission[entryId]).join('&')}></iframe>
                 </div>
             }
         </div>
         );
     }
 }
+
+//https://docs.google.com/forms/d/e/1FAIpQLSfK8v4xHnetEJH9B_qRJ9W6_gOQHRQgvUZf-Ms90eL-roJnZg/viewform?usp=pp_url&entry.1113825212=2019-02-03
 
 Form.propTypes = {
   classes: PropTypes.object.isRequired,
