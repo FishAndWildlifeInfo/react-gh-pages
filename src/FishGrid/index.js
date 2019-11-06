@@ -75,17 +75,18 @@ class SimpleTable extends React.Component {
     }
   
     renderRow = (data) => {
-        const { fish_id } = this.props
+        const { fish, fish_id } = this.props
         let selectedOptions = this.props.selectedOptions || {}
         let row = []
     
-        let fish_type = [fish_id + '_kept_', fish_id + '_released_']
+        let fish_type = [fish_id + '_kept_', fish_id + '_released_', fish_id + '_ad_clip_']
 
         row.push(
             <CustomTableCell key={'cell_header_' + data.size} component="th" scope="row">{data.label}</CustomTableCell>
         )
     
-        for(var i = 0; i < 2; i++) {
+        const columns = fish === 'Kokanee' ? 3 : 2
+        for(var i = 0; i < columns; i++) {
             let option = fish_type[i] + data.size
 
             row.push(
@@ -126,6 +127,9 @@ class SimpleTable extends React.Component {
                                 <CustomTableCell style={sizeColumnStyle}>Size</CustomTableCell>
                                 <CustomTableCell align="left" style={customColumnStyle}>Kept</CustomTableCell>
                                 <CustomTableCell align="left" style={customColumnStyle}>Released</CustomTableCell>
+                                {fish === 'Kokanee' &&
+                                    <CustomTableCell align="left" style={customColumnStyle}>AD Clipped</CustomTableCell>
+                                }
                             </TableRow>
                         </TableHead>
                         <TableBody className={classes.tableBody}>

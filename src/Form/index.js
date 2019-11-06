@@ -175,6 +175,11 @@ const residences = {
     "other": "Other"
 }
 
+const targetedSpecies = {
+    "kokanee": "Kokanee",
+    "chinook": "Chinook"
+}
+
 class Form extends React.Component {
 
     state = {
@@ -221,6 +226,10 @@ class Form extends React.Component {
         this.setState({ [name]: value });
     }
 
+    componentWillUpdate(nextProps, nextState) {
+        console.log(nextState)
+    }
+
     render() {
         const { classes } = this.props;
         const { selectedDate } = this.state;
@@ -232,6 +241,7 @@ class Form extends React.Component {
             "entry.465386035": this.state.numOfHoursFished,
             "entry.2083749126": this.state.numOfRods,
             "entry.1594605968": residences[this.state.residence],
+            "entry.245010161": this.state.targetedSpecies,
             "entry.926315835": this.state.kokanee_kept_lt8 || 0,
             "entry.1168566108": this.state.kokanee_released_lt8 || 0,
             "entry.182249114": this.state.kokanee_kept_8 || 0,
@@ -266,7 +276,15 @@ class Form extends React.Component {
             "entry.1877388184": this.state.chinook_released_gte20 || 0,
             "entry.1213613591": this.state.sat_overall,
             "entry.486866884": this.state.sat_numOfFish,
-            "entry.162065823": this.state.sat_sizeOfFish
+            "entry.162065823": this.state.sat_sizeOfFish,
+            "entry.877114646": this.state.kokanee_ad_clip_lt8 || 0,
+            "entry.921596154": this.state.kokanee_ad_clip_8 || 0,
+            "entry.1062659070": this.state.kokanee_ad_clip_10 || 0,
+            "entry.520944888": this.state.kokanee_ad_clip_12 || 0,
+            "entry.801137358": this.state.kokanee_ad_clip_14 || 0,
+            "entry.19730656": this.state.kokanee_ad_clip_16 || 0,
+            "entry.470753667": this.state.kokanee_ad_clip_18 || 0,
+            "entry.1678122272": this.state.kokanee_ad_clip_gte20 || 0
         }
 
         return (
@@ -327,6 +345,14 @@ class Form extends React.Component {
                     options={residences}
                     selectedOption={this.state.residence}
                     onChange={value => this.handleChange('residence', value)}
+                />
+                <br/><br/>
+
+                <Select
+                    label='Targeted Species'
+                    options={targetedSpecies}
+                    selectedOption={this.state.targetedSpecies}
+                    onChange={value => this.handleChange('targetedSpecies', value)}
                 />
                 <br/><br/><br/>
 
