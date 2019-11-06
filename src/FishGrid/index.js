@@ -128,7 +128,7 @@ class SimpleTable extends React.Component {
                                 <CustomTableCell align="left" style={customColumnStyle}>Kept</CustomTableCell>
                                 <CustomTableCell align="left" style={customColumnStyle}>Released</CustomTableCell>
                                 {fish === 'Kokanee' &&
-                                    <CustomTableCell align="left" style={customColumnStyle}>AD Clipped</CustomTableCell>
+                                    <CustomTableCell align="left" style={customColumnStyle}>Fin Clipped</CustomTableCell>
                                 }
                             </TableRow>
                         </TableHead>
