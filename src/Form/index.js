@@ -361,6 +361,7 @@ class Form extends React.Component {
                 <br/>
 
                 <FishGrid
+                    formState={this.state}
                     fish_id='kokanee'
                     fish='Kokanee'
                     onChange={(key, value) => this.handleChange(key, value)}
@@ -368,6 +369,7 @@ class Form extends React.Component {
                 <br/><br/>
 
                 <FishGrid
+                    formState={this.state}
                     fish_id='chinook'
                     fish='Inland Chinook'
                     onChange={(key, value) => this.handleChange(key, value)}

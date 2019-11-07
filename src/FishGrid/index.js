@@ -75,11 +75,11 @@ class SimpleTable extends React.Component {
     }
   
     renderRow = (data) => {
-        const { fish, fish_id } = this.props
+        const { formState, fish, fish_id } = this.props
         let selectedOptions = this.props.selectedOptions || {}
         let row = []
     
-        let fish_type = [fish_id + '_kept_', fish_id + '_released_', fish_id + '_ad_clip_']
+        let fish_type = [fish_id + '_kept_' + data.size, fish_id + '_released_' + data.size, fish_id + '_ad_clip_' + data.size]
 
         row.push(
             <CustomTableCell key={'cell_header_' + data.size} component="th" scope="row">{data.label}</CustomTableCell>
@@ -87,7 +87,8 @@ class SimpleTable extends React.Component {
     
         const columns = fish === 'Kokanee' ? 3 : 2
         for(var i = 0; i < columns; i++) {
-            let option = fish_type[i] + data.size
+            let option = fish_type[i]
+            let rangeMax = (columns === 3 && i === 2) ? (parseInt(formState[fish_type[0]]) || 0) + (parseInt(formState[fish_type[1]]) || 0) : 40
 
             row.push(
                 <CustomTableCell key={'cell_' + option}>
@@ -96,9 +97,10 @@ class SimpleTable extends React.Component {
                         defaultLabel='0'
                         label=''
                         hideLabel
-                        options={this.range(40)}
+                        options={this.range(rangeMax)}
                         selectedOption={selectedOptions[option]}
                         onChange={value => {
+                            console.log(option, value)
                             this.handleChange(option, value)
                         }}
                     />
@@ -151,7 +153,8 @@ class SimpleTable extends React.Component {
 SimpleTable.propTypes = {
   classes: PropTypes.object.isRequired,
   selectedOptions: PropTypes.object,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  formState: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(SimpleTable);
