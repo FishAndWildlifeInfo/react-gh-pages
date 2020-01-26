@@ -175,15 +175,24 @@ const residences = {
     "other": "Other"
 }
 
+const states = {
+    "az": "AZ",
+    "or": "OR",
+    "wa": "WA",
+    "other": "Other"
+}
+
 const targetedSpecies = {
     "kokanee": "Kokanee",
-    "chinook": "Chinook"
+    "chinook": "Chinook",
+    "both": "Both"
 }
 
 class Form extends React.Component {
 
     state = {
         selectedDate: new Date(),
+        state: 'ca',
         submit: false
     }
 
@@ -194,13 +203,14 @@ class Form extends React.Component {
             numOfAnglers,
             numOfHoursFished,
             numOfRods,
+            state,
             residence,
             sat_overall,
             sat_numOfFish,
             sat_sizeOfFish
         } = this.state
 
-        return selectedDate && lake && numOfAnglers && numOfHoursFished && numOfRods && residence && sat_overall && sat_numOfFish && sat_sizeOfFish
+        return selectedDate && lake && numOfAnglers && numOfHoursFished && numOfRods && state && residence && sat_overall && sat_numOfFish && sat_sizeOfFish
     }
 
     handleDateChange = date => {
@@ -341,10 +351,32 @@ class Form extends React.Component {
                 <br/><br/>
 
                 <Select
+                    label='State of Residence'
+                    noNone
+                    options={states}
+                    selectedOption={this.state.state}
+                    defaultLabel='CA'
+                    defaultValue='ca'
+                    onChange={value => {
+                        this.handleChange('state', value)
+
+                        if(value != 'ca') {
+                            this.handleChange('residence', 'n/a')
+                        } else {
+                            this.handleChange('residence', '')
+                        }
+                    }}
+                />
+                <br/><br/>
+
+                <Select
                     label='County of Residence'
+                    disabled={this.state.state != 'ca'}
                     options={residences}
                     selectedOption={this.state.residence}
-                    onChange={value => this.handleChange('residence', value)}
+                    onChange={value => {
+                        this.handleChange('residence', value)
+                    }}
                 />
                 <br/><br/>
 

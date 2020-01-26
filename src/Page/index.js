@@ -50,7 +50,6 @@ class Page extends React.Component {
       <div className={classes.root}>
         <AppBar position="sticky" color="primary">
             <Toolbar>
-            <img src={require('../assets/logo.png')} className={classes.logo} alt='California Department of Fish and Wildlife' />
             <Typography variant="h6" color="inherit" className={classes.name}>
                 Kokanee & Inland Chinook Angler Survey
             </Typography>

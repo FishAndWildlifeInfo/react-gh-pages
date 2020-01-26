@@ -41,7 +41,7 @@ class CustomSelect extends React.Component {
   }
 
   render() {
-    const { classes, dense, label, hideLabel, selectedOption, defaultLabel, defaultValue } = this.props;
+    const { classes, dense, label, hideLabel, selectedOption, defaultLabel, defaultValue, disabled } = this.props;
     
     return (
       <div className={{...classes.root, maxWidth: (dense === true) ? 80 : undefined}}>
@@ -53,6 +53,7 @@ class CustomSelect extends React.Component {
         }
         <FormControl className={classes.formControl} style={{margin: ((dense === true) ? 0 : 12)}}>
         <NativeSelect
+            disabled={disabled}
             value={selectedOption}
             onChange={this.handleChange}
             name={'select_' + label.toUpperCase }
@@ -75,7 +76,8 @@ CustomSelect.propTypes = {
   options: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   defaultLabel: PropTypes.string,
-  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  disabled: PropTypes.bool
 };
 
 export default withStyles(styles)(CustomSelect);
