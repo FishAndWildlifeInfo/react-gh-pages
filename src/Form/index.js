@@ -251,6 +251,7 @@ class Form extends React.Component {
             "entry.465386035": this.state.numOfHoursFished,
             "entry.2083749126": this.state.numOfRods,
             "entry.1594605968": residences[this.state.residence],
+            "entry.1774382335": this.state.state,
             "entry.245010161": this.state.targetedSpecies,
             "entry.926315835": this.state.kokanee_kept_lt8 || 0,
             "entry.1168566108": this.state.kokanee_released_lt8 || 0,
