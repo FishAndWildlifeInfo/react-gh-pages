@@ -250,8 +250,8 @@ class Form extends React.Component {
             "entry.544223057": this.state.numOfAnglers,
             "entry.465386035": this.state.numOfHoursFished,
             "entry.2083749126": this.state.numOfRods,
-            "entry.1594605968": residences[this.state.residence],
-            "entry.1774382335": this.state.state,
+            "entry.1594605968": this.state.residence === 'n/a' ? 'N/A' : residences[this.state.residence],
+            "entry.1774382335": this.state.state === 'ca' ? 'CA' : states[this.state.state],
             "entry.245010161": this.state.targetedSpecies,
             "entry.926315835": this.state.kokanee_kept_lt8 || 0,
             "entry.1168566108": this.state.kokanee_released_lt8 || 0,
@@ -297,6 +297,9 @@ class Form extends React.Component {
             "entry.470753667": this.state.kokanee_ad_clip_18 || 0,
             "entry.1678122272": this.state.kokanee_ad_clip_gte20 || 0
         }
+        console.log('states:', states)
+        console.log('state:', this.state)
+        console.log('submission:', submission)
 
         return (
         <div>
@@ -361,7 +364,7 @@ class Form extends React.Component {
                     onChange={value => {
                         this.handleChange('state', value)
 
-                        if(value != 'ca') {
+                        if(value !== 'ca') {
                             this.handleChange('residence', 'n/a')
                         } else {
                             this.handleChange('residence', '')
@@ -370,16 +373,20 @@ class Form extends React.Component {
                 />
                 <br/><br/>
 
-                <Select
-                    label='County of Residence'
-                    disabled={this.state.state != 'ca'}
-                    options={residences}
-                    selectedOption={this.state.residence}
-                    onChange={value => {
-                        this.handleChange('residence', value)
-                    }}
-                />
-                <br/><br/>
+                {this.state.state === 'ca' && (
+                    <span>
+                        <Select
+                            label='County of Residence'
+                            disabled={this.state.state !== 'ca'}
+                            options={residences}
+                            selectedOption={this.state.residence}
+                            onChange={value => {
+                                this.handleChange('residence', value)
+                            }}
+                        />
+                        <br/><br/>
+                    </span>
+                )}
 
                 <Select
                     label='Targeted Species'

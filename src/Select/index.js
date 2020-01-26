@@ -59,7 +59,7 @@ class CustomSelect extends React.Component {
             name={'select_' + label.toUpperCase }
             className={classes.selectEmpty}
           >
-            <option key={'select_' + label.toLowerCase() + '_none'} value={defaultValue || ''}>{defaultLabel || 'None'}</option>
+            <option key={'select_' + label.toLowerCase() + '_none'} value={defaultValue || ''}>{defaultLabel || 'Select'}</option>
             {this.renderOptions()}
           </NativeSelect>
         </FormControl>
