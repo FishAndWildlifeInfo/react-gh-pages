@@ -45,17 +45,13 @@ function createData(label, size) {
 }
 
 const rows = [
-  createData('< 10"', 'lt10'),
-  createData('10" - 10.9”', '10'),
-  createData('11" - 11.9”', '11'),
-  createData('12" - 12.9”', '12'),
-  createData('13" - 13.9”', '13'),
-  createData('14 - 14.9”', '14'),
-  createData('15 - 15.9”', '15'),
-  createData('16" - 16.9”', '16'),
-  createData('17" - 17.9”', '17'),
-  createData('18" - 18.9”', '18'),
-  createData('19" - 19.9”', '19'),
+  createData('< 8"', 'lt8'),
+  createData('8" - 9.9”', '8'),
+  createData('10" - 11.9”', '10'),
+  createData('12" - 13.9”', '12'),
+  createData('14 - 15.9”', '14'),
+  createData('16" - 17.9”', '16'),
+  createData('18" - 19.9”', '18'),
   createData('>= 20"', 'gte20'),
 ];
 

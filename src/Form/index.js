@@ -9,8 +9,6 @@ import { MuiPickersUtilsProvider } from 'material-ui-pickers'
 import { DatePicker } from 'material-ui-pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import Button from '@material-ui/core/Button'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox'
 import Select from '../Select/'
 import LinearScale from '../LinearScale/'
 import FishGrid from '../FishGrid/'
@@ -116,12 +114,69 @@ const residences = {
     "ventura": "Ventura County",
     "yolo": "Yolo County",
     "yuba": "Yuba County",
+    "alabama": "Alabama",
+    "alaska": "Alaska",
+    "american_samoa": "American Samoa",
+    "arizona": "Arizona",
+    "arkansas": "Arkansas",
+    "colorado": "Colorado",
+    "connecticut": "Connecticut",
+    "delaware": "Delaware",
+    "district_of_columbia": "District of Columbia",
+    "federated_states_of_micronesia": "Federated States of Micronesia",
+    "florida": "Florida",
+    "georgia": "Georgia",
+    "guam": "Guam",
+    "hawaii": "Hawaii",
+    "idaho": "Idaho",
+    "illinois": "Illinois",
+    "indiana": "Indiana",
+    "iowa": "Iowa",
+    "kansas": "Kansas",
+    "kentucky": "Kentucky",
+    "louisiana": "Louisiana",
+    "maine": "Maine",
+    "marshall_islands": "Marshall Islands",
+    "maryland": "Maryland",
+    "massachusetts": "Massachusetts",
+    "michigan": "Michigan",
+    "minnesota": "Minnesota",
+    "mississippi": "Mississippi",
+    "missouri": "Missouri",
+    "montana": "Montana",
+    "nebraska": "Nebraska",
+    "nevada": "Nevada",
+    "new_hampshire": "New Hampshire",
+    "new_jersey": "New Jersey",
+    "new_mexico": "New Mexico",
+    "new_york": "New York",
+    "north_carolina": "North Carolina",
+    "north_dakota": "North Dakota",
+    "northern_mariana_islands": "Northern Mariana Islands",
+    "ohio": "Ohio",
+    "oklahoma": "Oklahoma",
+    "oregon": "Oregon",
+    "palau": "Palau",
+    "pennsylvania": "Pennsylvania",
+    "puerto_rico": "Puerto Rico",
+    "rhode_island": "Rhode Island",
+    "south_carolina": "South Carolina",
+    "south_dakota": "South Dakota",
+    "tennessee": "Tennessee",
+    "texas": "Texas",
+    "utah": "Utah",
+    "vermont": "Vermont",
+    "virgin_island": "Virgin Island",
+    "virginia": "Virginia",
+    "washington": "Washington",
+    "west_virginia": "West Virginia",
+    "wisconsin": "Wisconsin",
+    "wyoming": "Wyoming",
     "other": "Other"
 }
 
 const states = {
     "az": "AZ",
-    "nv": "NV",
     "or": "OR",
     "wa": "WA",
     "other": "Other"
@@ -138,8 +193,7 @@ class Form extends React.Component {
     state = {
         selectedDate: new Date(),
         state: 'ca',
-        submit: false,
-        multiDay: false
+        submit: false
     }
 
     formComplete = () => {
@@ -161,13 +215,6 @@ class Form extends React.Component {
 
     handleDateChange = date => {
         this.setState({ selectedDate: date });
-    }
-
-    handleEndDateChange = date => {
-
-        if(this.state.selectedDate && this.state.selectedDate < date) {
-            this.setState({ endDate: date });
-        }
     }
 
     range = (length, offset = 1) => {
@@ -195,81 +242,60 @@ class Form extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { selectedDate, endDate } = this.state;
+        const { selectedDate } = this.state;
         
         var submission = {
-            "entry.1774382335": this.state.state === 'ca' ? 'CA' : states[this.state.state],
             "entry.1113825212": selectedDate.getFullYear() + '-' + ('0' + (selectedDate.getMonth() + 1)).slice(-2) + '-' + ('0' + selectedDate.getDate()).slice(-2),
-            "entry.1069109389": endDate ? (endDate.getFullYear() + '-' + ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' + ('0' + endDate.getDate()).slice(-2)) : undefined,
             "entry.978780858": lakes[this.state.lake],
             "entry.544223057": this.state.numOfAnglers,
             "entry.465386035": this.state.numOfHoursFished,
             "entry.2083749126": this.state.numOfRods,
             "entry.1594605968": this.state.residence === 'n/a' ? 'N/A' : residences[this.state.residence],
+            "entry.1774382335": this.state.state === 'ca' ? 'CA' : states[this.state.state],
             "entry.245010161": this.state.targetedSpecies,
-            "entry.926315835": this.state.kokanee_kept_lt10 || 0,
-            "entry.1168566108": this.state.kokanee_released_lt10 || 0,
-            "entry.877114646": this.state.kokanee_ad_clip_lt10 || 0,
-            "entry.182249114": this.state.kokanee_kept_10 || 0,
-            "entry.1899785101": this.state.kokanee_released_10 || 0,
-            "entry.921596154": this.state.kokanee_ad_clip_10 || 0,
-            "entry.1826766183": this.state.kokanee_kept_11 || 0,
-            "entry.2118288753": this.state.kokanee_released_11 || 0,
-            "entry.1062659070": this.state.kokanee_ad_clip_11 || 0,
+            "entry.926315835": this.state.kokanee_kept_lt8 || 0,
+            "entry.1168566108": this.state.kokanee_released_lt8 || 0,
+            "entry.182249114": this.state.kokanee_kept_8 || 0,
+            "entry.1899785101": this.state.kokanee_released_8 || 0,
+            "entry.1826766183": this.state.kokanee_kept_10 || 0,
+            "entry.2118288753": this.state.kokanee_released_10 || 0,
             "entry.1846482354": this.state.kokanee_kept_12 || 0,
             "entry.1509350859": this.state.kokanee_released_12 || 0,
-            "entry.520944888": this.state.kokanee_ad_clip_12 || 0,
-            "entry.1460011487": this.state.kokanee_kept_13 || 0,
-            "entry.436313363": this.state.kokanee_released_13 || 0,
-            "entry.801137358": this.state.kokanee_ad_clip_13 || 0,
-            "entry.1425365122": this.state.kokanee_kept_14 || 0,
-            "entry.380712182": this.state.kokanee_released_14 || 0,
-            "entry.19730656": this.state.kokanee_ad_clip_14 || 0,
-            "entry.414278670": this.state.kokanee_kept_15 || 0,
-            "entry.607088307": this.state.kokanee_released_15 || 0,
-            "entry.470753667": this.state.kokanee_ad_clip_15 || 0,
-            "entry.741881771": this.state.kokanee_kept_16 || 0,
-            "entry.633709172": this.state.kokanee_released_16 || 0,
-            "entry.1880163376": this.state.kokanee_ad_clip_16 || 0,
-            "entry.931869452": this.state.kokanee_kept_17 || 0,
-            "entry.774372847": this.state.kokanee_released_17 || 0,
-            "entry.988927380": this.state.kokanee_ad_clip_17 || 0,
-            "entry.888516751": this.state.kokanee_kept_18 || 0,
-            "entry.122778817": this.state.kokanee_released_18 || 0,
-            "entry.444245114": this.state.kokanee_ad_clip_18 || 0,
-            "entry.94523867": this.state.kokanee_kept_19 || 0,
-            "entry.1137583099": this.state.kokanee_released_19 || 0,
-            "entry.905645079": this.state.kokanee_ad_clip_19 || 0,
+            "entry.1460011487": this.state.kokanee_kept_14 || 0,
+            "entry.436313363": this.state.kokanee_released_14 || 0,
+            "entry.1425365122": this.state.kokanee_kept_16 || 0,
+            "entry.380712182": this.state.kokanee_released_16 || 0,
+            "entry.414278670": this.state.kokanee_kept_18 || 0,
+            "entry.607088307": this.state.kokanee_released_18 || 0,
             "entry.2050628999": this.state.kokanee_kept_gte20 || 0,
             "entry.1190430582": this.state.kokanee_released_gte20 || 0,
-            "entry.1678122272": this.state.kokanee_ad_clip_gte20 || 0,
-            "entry.502757154": this.state.chinook_kept_lt10 || 0,
-            "entry.1717172748": this.state.chinook_released_lt10 || 0,
-            "entry.1161055011": this.state.chinook_kept_10 || 0,
-            "entry.1068593095": this.state.chinook_released_10 || 0,
-            "entry.163459983": this.state.chinook_kept_11 || 0,
-            "entry.1662185936": this.state.chinook_released_11 || 0,
+            "entry.502757154": this.state.chinook_kept_lt8 || 0,
+            "entry.1717172748": this.state.chinook_released_lt8 || 0,
+            "entry.1161055011": this.state.chinook_kept_8 || 0,
+            "entry.1068593095": this.state.chinook_released_8 || 0,
+            "entry.163459983": this.state.chinook_kept_10 || 0,
+            "entry.1662185936": this.state.chinook_released_10 || 0,
             "entry.1380958071": this.state.chinook_kept_12 || 0,
             "entry.1239720748": this.state.chinook_released_12 || 0,
-            "entry.872313204": this.state.chinook_kept_13 || 0,
-            "entry.1672245887": this.state.chinook_released_13 || 0,
             "entry.1207753498": this.state.chinook_kept_14 || 0,
             "entry.1538963740": this.state.chinook_released_14 || 0,
-            "entry.593831581": this.state.chinook_kept_15 || 0,
-            "entry.515731364": this.state.chinook_released_15 || 0,
             "entry.143882022": this.state.chinook_kept_16 || 0,
             "entry.1209645714": this.state.chinook_released_16 || 0,
-            "entry.1657416032": this.state.chinook_kept_17 || 0,
-            "entry.956721839": this.state.chinook_released_17 || 0,
             "entry.576771471": this.state.chinook_kept_18 || 0,
             "entry.1123048741": this.state.chinook_released_18 || 0,
-            "entry.1335534218": this.state.chinook_kept_19 || 0,
-            "entry.966898868": this.state.chinook_released_19 || 0,
             "entry.574251591": this.state.chinook_kept_gte20 || 0,
             "entry.1877388184": this.state.chinook_released_gte20 || 0,
             "entry.1213613591": this.state.sat_overall,
             "entry.486866884": this.state.sat_numOfFish,
             "entry.162065823": this.state.sat_sizeOfFish,
+            "entry.877114646": this.state.kokanee_ad_clip_lt8 || 0,
+            "entry.921596154": this.state.kokanee_ad_clip_8 || 0,
+            "entry.1062659070": this.state.kokanee_ad_clip_10 || 0,
+            "entry.520944888": this.state.kokanee_ad_clip_12 || 0,
+            "entry.801137358": this.state.kokanee_ad_clip_14 || 0,
+            "entry.19730656": this.state.kokanee_ad_clip_16 || 0,
+            "entry.470753667": this.state.kokanee_ad_clip_18 || 0,
+            "entry.1678122272": this.state.kokanee_ad_clip_gte20 || 0
         }
         console.log('states:', states)
         console.log('state:', this.state)
@@ -284,31 +310,11 @@ class Form extends React.Component {
 
                 <Typography variant='body1'>Required fields are marked with a <span className={classes.required}>*</span></Typography><br/><br/>
 
-                <Typography variant='h5'>{this.state.multiDay ? 'Start Date' : 'Date'}<span className={classes.required}>*</span></Typography>
+                <Typography variant='h5'>Date<span className={classes.required}>*</span></Typography>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <DatePicker keyboard value={selectedDate} onChange={this.handleDateChange}/>
                 </MuiPickersUtilsProvider>
-                <br/>
-
-                <FormControlLabel
-                    control={
-                    <Checkbox
-                        checked={this.state.multiDay}
-                        onChange={() => this.setState({ multiDay: !this.state.multiDay })}
-                        color="primary"
-                    />
-                    }
-                    label="Multiday trip"
-                />
-                <br/><br/>
-
-                { this.state.multiDay && (<span>
-                <Typography variant='h5'>End Date<span className={classes.required}>*</span></Typography>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker keyboard value={endDate} onChange={this.handleEndDateChange}/>
-                </MuiPickersUtilsProvider>
                 <br/><br/><br/>
-                </span>)}
 
                 <Select
                     label='Lake'
