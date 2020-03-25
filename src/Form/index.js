@@ -9,8 +9,6 @@ import { MuiPickersUtilsProvider } from 'material-ui-pickers'
 import { DatePicker } from 'material-ui-pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import Button from '@material-ui/core/Button'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox'
 import Select from '../Select/'
 import LinearScale from '../LinearScale/'
 import FishGrid from '../FishGrid/'
@@ -139,7 +137,6 @@ class Form extends React.Component {
         selectedDate: new Date(),
         state: 'ca',
         submit: false,
-        multiDay: false
     }
 
     formComplete = () => {
@@ -200,7 +197,6 @@ class Form extends React.Component {
         var submission = {
             "entry.1774382335": this.state.state === 'ca' ? 'CA' : states[this.state.state],
             "entry.1113825212": selectedDate.getFullYear() + '-' + ('0' + (selectedDate.getMonth() + 1)).slice(-2) + '-' + ('0' + selectedDate.getDate()).slice(-2),
-            "entry.1069109389": endDate ? (endDate.getFullYear() + '-' + ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' + ('0' + endDate.getDate()).slice(-2)) : undefined,
             "entry.978780858": lakes[this.state.lake],
             "entry.544223057": this.state.numOfAnglers,
             "entry.465386035": this.state.numOfHoursFished,
@@ -284,31 +280,11 @@ class Form extends React.Component {
 
                 <Typography variant='body1'>Required fields are marked with a <span className={classes.required}>*</span></Typography><br/><br/>
 
-                <Typography variant='h5'>{this.state.multiDay ? 'Start Date' : 'Date'}<span className={classes.required}>*</span></Typography>
+                <Typography variant='h5'>{'Date'}<span className={classes.required}>*</span></Typography>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <DatePicker keyboard value={selectedDate} onChange={this.handleDateChange}/>
                 </MuiPickersUtilsProvider>
-                <br/>
-
-                <FormControlLabel
-                    control={
-                    <Checkbox
-                        checked={this.state.multiDay}
-                        onChange={() => this.setState({ multiDay: !this.state.multiDay })}
-                        color="primary"
-                    />
-                    }
-                    label="Multiday trip"
-                />
                 <br/><br/>
-
-                { this.state.multiDay && (<span>
-                <Typography variant='h5'>End Date<span className={classes.required}>*</span></Typography>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker keyboard value={endDate} onChange={this.handleEndDateChange}/>
-                </MuiPickersUtilsProvider>
-                <br/><br/><br/>
-                </span>)}
 
                 <Select
                     label='Lake'
